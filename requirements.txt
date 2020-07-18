@@ -1,0 +1,4 @@
+notify2==0.3.1
+pytiled_parser==0.9.3
+PyAutoGUI==0.9.50
+pyperclip==1.8.0
