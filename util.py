@@ -5,14 +5,19 @@ import pyperclip
 import sys
 import pytiled_parser
 
-notify2.init('')
+ignoreNotify=False
+
+try:
+    notify2.init('')
+except:
+    ignoreNotify=True
 
 def getGrid():
-    notify2.Notification('','Select upper left corner').show()
+    notify('Select upper left corner')
     time.sleep(3)
     x1,y1=pyautogui.position()
-    notify2.Notification('','Select four cells right down').show()
-    time.sleep(3)
+    notify('Select four cells right down')
+    time.sleep(10)
     x2,y2=pyautogui.position()
     dx,dy=(x2-x1,y2-y1)
     dx=dx//4
@@ -23,7 +28,10 @@ def getGrid():
 
 def browserCmd(cmd):
     pyautogui.press("f6")
-    pyautogui.write("javascript:")
+    pyperclip.copy(":")
+    pyautogui.write("javascript")
+    pyautogui.hotkey('ctrl','v')
+    # pyautogui.write("javascript:")
     pyperclip.copy(cmd)
     pyautogui.hotkey('ctrl','v')
     # pyautogui.typewrite("javascript:document.getElementsByTagName('button')[1].click();")
@@ -36,3 +44,9 @@ def writeInput(field,text):
     pyautogui.hotkey('ctrl','a')
     pyperclip.copy(text)
     pyautogui.hotkey('ctrl','v')
+
+def notify(text):
+    if ignoreNotify:
+        print(text)
+    else:
+        notify2.Notification('',text).show()
